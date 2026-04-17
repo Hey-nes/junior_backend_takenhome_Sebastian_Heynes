@@ -23,8 +23,9 @@ dist/
 target/
 dist/
 
-# JetBrains IDE
+# IDEs and editors
 .idea/
+.vscode
 
 # Unit test reports
 TEST*.xml
@@ -53,3 +54,8 @@ __pycache__/
 
 # Environments
 .venv/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/

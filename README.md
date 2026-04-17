@@ -106,6 +106,13 @@ python src/main.py
 
 **Note:** When you first run `main.py`, it will fail with errors. This is expected fixing these errors is part of the assignment.
 
+## Testing
+
+### Run this in root:
+```bash
+python3 -m pytest tests/test_sync.py
+```
+
 
 ## Credentials
 
