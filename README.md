@@ -101,8 +101,7 @@ The mock platform will run on `http://127.0.0.1:8000`.
 ### 4) Run the sync script
 
 ```bash
-cd src
-python main.py
+python src/main.py
 ```
 
 **Note:** When you first run `main.py`, it will fail with errors. This is expected fixing these errors is part of the assignment.

@@ -24,9 +24,13 @@ def get_user_id(connection: sqlite3.Connection, full_name: str) -> int | None:
     return None if row is None else int(row["id"])
 
 
-def update_last_login(connection: sqlite3.Connection, user_id: int, timestamp: str) -> None:
-    """TODO: update users.last_login for the given user."""
-    raise NotImplementedError
+def update_last_login(
+    connection: sqlite3.Connection, user_id: int, timestamp: str
+) -> None:
+    connection.execute(
+        "UPDATE users SET last_login = ? WHERE id = ?",
+        (timestamp, user_id),
+    )
 
 
 def update_queue_spot(
@@ -39,5 +43,15 @@ def update_queue_spot(
     status: str,
     inactive_reason: str | None,
 ) -> None:
-    """TODO: update one queue_spots row for the given user and queue_type."""
-    raise NotImplementedError
+    connection.execute(
+        "UPDATE queue_spots SET registration_date = ?, last_updated = ?, update_before = ?, status = ?, inactive_reason = ? WHERE user_id = ? AND queue_type = ?",
+        (
+            registration_date,
+            last_updated,
+            update_before,
+            status,
+            inactive_reason,
+            user_id,
+            queue_type,
+        ),
+    )

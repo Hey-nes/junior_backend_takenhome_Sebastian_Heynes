@@ -44,7 +44,32 @@ def main() -> None:
                 inactive_reason=spot.inactive_reason,
             )
 
-    print(f"Updated {len(queue_spots)} queue spots for {TARGET_USER}.")
+    # Re-fetch the data and print out a rapport
+    with get_connection(db_path) as connection:
+        updated_spots = connection.execute(
+            "SELECT * FROM queue_spots WHERE user_id = ?", (user_id,)
+        ).fetchall()
+
+        print(f"Updated the following {len(queue_spots)} queue spots:")
+
+        for row in updated_spots:
+            print(f"\n[{row['queue_type']} Queue]")
+            print(f"  Registration Date: {row['registration_date']}")
+            print(f"  Last Updated:      {row['last_updated']}")
+            print(f"  Update Before:     {row['update_before']}")
+            print(f"  Status:            {row['status'].upper()}")
+
+            if row["inactive_reason"]:
+                print(f"  Inactive Reason:   {row['inactive_reason']}")
+
+        user_row = connection.execute(
+            "SELECT * FROM users WHERE id = ?", (user_id,)
+        ).fetchone()
+
+        if user_row:
+            print(f"\n[User Affected]")
+            print(f"  {TARGET_USER}")
+            print(f"  Last Login:        {user_row['last_login']}")
 
 
 if __name__ == "__main__":
